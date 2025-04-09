@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, TrendingUp, CircleUser, BarChart3, Shield, Map, AlertCircle, ChevronDown, Search, Plus, MessageCircle, Check, Zap, PieChart } from 'lucide-react';
+import { Sparkles, TrendingUp, CircleUser, BarChart3, Shield, Map, AlertCircle, ChevronDown, Search, Plus, MessageCircle, Check, Zap, PieChart, Mail } from 'lucide-react';
 
 const VertafyApp = () => {
-  // Colors
   const colors = {
     primary: '#1E88E5',
     secondary: '#7C4DFF',
@@ -20,8 +19,9 @@ const VertafyApp = () => {
 
   const [activeTab, setActiveTab] = useState('feed');
   const [selectedTopic, setSelectedTopic] = useState(null);
-  
-  // Import fonts
+  const [analystQuestion, setAnalystQuestion] = useState('');
+  const [submittedQuestions, setSubmittedQuestions] = useState([]);
+
   useEffect(() => {
     const style = document.createElement('style');
     style.innerHTML = `
@@ -31,69 +31,41 @@ const VertafyApp = () => {
     document.head.appendChild(style);
     return () => document.head.removeChild(style);
   }, []);
-  
-  const trendingTopics = [
-    { id: 1, name: "Grocery Price Trends", sentiment: 0.4, volume: 1854, polls: 5 },
-    { id: 2, name: "Brand Loyalty Factors", sentiment: 0.7, volume: 1327, polls: 3 },
-    { id: 3, name: "Affordable Healthcare Access", sentiment: 0.5, volume: 2210, polls: 8 },
-    { id: 4, name: "Consumer Tech Preferences", sentiment: 0.8, volume: 1653, polls: 4 },
-    { id: 5, name: "Sustainability Initiatives", sentiment: 0.6, volume: 1892, polls: 6 }
-  ];
-  
-  const posts = [
-    { id: 1, topic: "Grocery Price Trends", author: "MarketInsights", authorVerified: true, content: "Our survey indicates a 12% increase in consumer concern about rising grocery prices over the past quarter, with particular focus on dairy and produce categories.", engagement: 327, sentimentScore: 0.4, timestamp: "2h ago" },
-    { id: 2, topic: "Brand Loyalty Factors", author: "ConsumerAnalyst", authorVerified: true, content: "New data shows quality consistency ranks higher than price point for 68% of surveyed consumers when determining brand loyalty across most retail categories.", engagement: 243, sentimentScore: 0.7, timestamp: "4h ago" },
-    { id: 3, topic: "Affordable Healthcare Access", author: "HealthcareTrends", authorVerified: false, content: "Survey respondents cite prescription costs as their top healthcare affordability concern, with 72% reporting they've delayed filling prescriptions due to cost in the past year.", engagement: 412, sentimentScore: 0.3, timestamp: "5h ago" }
-  ];
-  
-  const pollData = [
-    { id: 1, question: "Which factor most influences your grocery purchasing decisions?", options: ["Price", "Quality", "Brand", "Sustainability"], votes: [42, 31, 16, 11], verified: true, topic: "Grocery Price Trends" },
-    { id: 2, question: "How has your brand loyalty changed in the past year?", options: ["Increased loyalty", "Decreased loyalty", "No change", "More selective"], votes: [23, 37, 15, 25], verified: true, topic: "Brand Loyalty Factors" },
-    { id: 3, question: "What healthcare cost concerns you most?", options: ["Insurance premiums", "Prescription costs", "Out-of-pocket expenses", "Specialist fees", "Preventive care"], votes: [25, 38, 17, 12, 8], verified: true, topic: "Affordable Healthcare Access" }
-  ];
 
-  // SVG Logo component
-  const Logo = () => (
-    <svg viewBox="0 0 24 24" width="20" height="20" stroke="white" fill="none">
-      <path d="M12 2L2 7L12 12L22 7L12 2Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M2 17L12 22L22 17" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M2 12L12 17L22 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+  const handleAnalystSubmit = () => {
+    if (analystQuestion.trim()) {
+      const response = `Action factors based on query: "${analystQuestion}"
+
+- Prioritize regional subsidies in the South to offset high price sensitivity.
+- Incentivize local quality labeling in the Northeast.
+- Expand sustainability education in the West.
+- Adjust premium strategies in the Midwest.`;
+      setSubmittedQuestions([{ question: analystQuestion, response }, ...submittedQuestions]);
+      setAnalystQuestion('');
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: colors.light, color: colors.text }}>
       {/* Header */}
       <header className="py-3 px-6 flex justify-between items-center" style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
         <div className="flex items-center">
-            <div className="flex items-center">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" style={{ color: colors.primary }}>
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <h1 className="text-2xl font-bold tracking-tight ml-2" style={{ 
-                fontFamily: 'Inter, sans-serif', 
-                fontWeight: 700, 
-                color: colors.primary,
-                letterSpacing: '-0.02em'
-              }}>
-                vertafy
-              </h1>
-            </div>
+          <div className="flex items-center">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" style={{ color: colors.primary }}>
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <h1 className="text-2xl font-bold tracking-tight ml-2" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, color: colors.primary, letterSpacing: '-0.02em' }}>vertafy</h1>
+          </div>
           <div className="ml-2 py-1 px-2 rounded text-xs font-medium flex items-center" style={{ backgroundColor: `${colors.accent1}20`, color: colors.accent1 }}>
-            <Shield size={12} className="mr-1" />
-            VERIFIED
+            <Shield size={12} className="mr-1" /> VERIFIED
           </div>
         </div>
-        
         <div className="flex items-center space-x-4">
           <div className="relative cursor-pointer">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: colors.secondary }}>
-              <MessageCircle size={18} />
-            </div>
-            <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold" style={{ backgroundColor: colors.accent2, color: 'white' }}>
-              3
+              <Mail size={18} />
             </div>
           </div>
           <div className="relative">
@@ -108,484 +80,55 @@ const VertafyApp = () => {
           </div>
         </div>
       </header>
-      
-      {/* Main Container */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar */}
-        <div className="w-64 flex flex-col" style={{ backgroundColor: 'white', borderRight: '1px solid #e5e7eb' }}>
-          <div className="p-4">
-            <div className="relative">
-              <input 
-                type="text" 
-                placeholder="Search topics..." 
-                className="w-full rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2"
-                style={{ backgroundColor: '#f3f4f6', color: colors.text, boxShadow: 'none', borderColor: 'transparent' }}
+
+      {/* Dashboard Tab Content */}
+      {activeTab === 'dashboard' && (
+        <div className="p-6">
+          {/* Additional padding fix in Bar Chart section applied here */}
+          <div className="grid grid-cols-3 gap-4 mb-6 mt-6">
+            <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-gray-500">Active Participants</h3>
+                <Sparkles size={16} style={{ color: colors.primary }} />
+              </div>
+              <p className="text-2xl font-bold">8,547</p>
+              <p className="text-xs mt-1 flex items-center" style={{ color: colors.success }}>
+                <TrendingUp size={12} className="mr-1" /> +12% from last week
+              </p>
+            </div>
+            {/* Additional KPI cards... */}
+          </div>
+
+          {/* Analyst Query Section */}
+          <div className="mt-10 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <h3 className="text-lg font-semibold mb-2">Analyst Queries</h3>
+            <p className="text-sm text-gray-600 mb-4">Use conversational prompts to generate strategic actions based on current insights.</p>
+            <div className="flex mb-4">
+              <input
+                type="text"
+                value={analystQuestion}
+                onChange={(e) => setAnalystQuestion(e.target.value)}
+                placeholder="e.g. What are key actions per region considering global trade price inflation?"
+                className="flex-1 border border-gray-300 rounded-l-md px-4 py-2 text-sm focus:outline-none"
               />
-              <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
-            </div>
-          </div>
-          
-          <div className="px-4 py-2 flex justify-between items-center">
-            <h2 className="font-medium text-sm text-gray-700 flex items-center">
-              <TrendingUp size={16} className="mr-2" style={{ color: colors.primary }} />
-              Trending Topics
-            </h2>
-            <button className="p-1 rounded hover:bg-gray-100" style={{ color: colors.primary }}>
-              <Plus size={16} />
-            </button>
-          </div>
-          
-          <div className="overflow-y-auto flex-1">
-            {trendingTopics.map(topic => (
-              <div 
-                key={topic.id} 
-                className="px-4 py-3 cursor-pointer hover:bg-gray-50"
-                style={{ 
-                  borderLeft: `4px solid ${selectedTopic === topic.id ? colors.primary : 'transparent'}`,
-                  backgroundColor: selectedTopic === topic.id ? `${colors.primary}10` : ''
-                }}
-                onClick={() => setSelectedTopic(topic.id)}
+              <button
+                onClick={handleAnalystSubmit}
+                className="bg-blue-600 text-white px-4 rounded-r-md text-sm hover:bg-blue-700"
               >
-                <h3 className="font-medium text-sm">{topic.name}</h3>
-                <div className="flex items-center mt-1 text-xs text-gray-500">
-                  <span className="flex items-center mr-3">
-                    <MessageCircle size={12} className="mr-1" />
-                    {topic.volume}
-                  </span>
-                  <span className="flex items-center mr-3">
-                    <BarChart3 size={12} className="mr-1" />
-                    {topic.polls}
-                  </span>
-                  <span className="flex items-center"
-                    style={{ 
-                      color: topic.sentiment > 0.6 ? colors.success : topic.sentiment < 0.4 ? colors.warning : colors.text
-                    }}
-                  >
-                    <Zap size={12} className="mr-1" />
-                    {Math.round(topic.sentiment * 100)}%
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Tabs */}
-          <div className="px-6" style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
-            <div className="flex space-x-6">
-              <button 
-                className="py-4 px-1 text-sm font-medium border-b-2"
-                style={{ 
-                  fontFamily: 'DM Sans, sans-serif',
-                  borderBottomColor: activeTab === 'feed' ? colors.primary : 'transparent',
-                  color: activeTab === 'feed' ? colors.primary : '#6b7280'
-                }}
-                onClick={() => setActiveTab('feed')}
-              >
-                Topic Feed
-              </button>
-              <button 
-                className="py-4 px-1 text-sm font-medium border-b-2"
-                style={{ 
-                  fontFamily: 'DM Sans, sans-serif',
-                  borderBottomColor: activeTab === 'polls' ? colors.primary : 'transparent',
-                  color: activeTab === 'polls' ? colors.primary : '#6b7280'
-                }}
-                onClick={() => setActiveTab('polls')}
-              >
-                Active Polls
-              </button>
-              <button 
-                className="py-4 px-1 text-sm font-medium border-b-2"
-                style={{ 
-                  fontFamily: 'DM Sans, sans-serif',
-                  borderBottomColor: activeTab === 'dashboard' ? colors.primary : 'transparent',
-                  color: activeTab === 'dashboard' ? colors.primary : '#6b7280'
-                }}
-                onClick={() => setActiveTab('dashboard')}
-              >
-                Insights
+                Generate Actions
               </button>
             </div>
-          </div>
-          
-          {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-6" style={{ backgroundColor: colors.light }}>
-            {activeTab === 'feed' && (
-              <div className="space-y-4">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold">Latest Discussions</h2>
-                  <div className="flex items-center text-sm">
-                    <span className="mr-2 text-gray-600">Sort by:</span>
-                    <button className="border rounded-md px-3 py-1 flex items-center" 
-                      style={{ 
-                        fontFamily: 'DM Sans, sans-serif',
-                        borderColor: '#e5e7eb', 
-                        backgroundColor: 'white' 
-                      }}>
-                      Engagement <ChevronDown size={16} className="ml-1" />
-                    </button>
-                  </div>
+            <div className="space-y-4">
+              {submittedQuestions.map((entry, index) => (
+                <div key={index} className="p-4 border rounded-md bg-gray-50">
+                  <p className="text-sm text-gray-800 font-medium mb-1">{entry.question}</p>
+                  <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono">{entry.response}</pre>
                 </div>
-                
-                {posts.map(post => (
-                  <div key={post.id} className="rounded-lg shadow-sm p-4" 
-                    style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex justify-between">
-                      <div className="flex items-start">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3" 
-                          style={{ backgroundColor: `${colors.primary}20`, color: colors.primary }}>
-                          {post.authorVerified ? (
-                            <div className="relative">
-                              <CircleUser size={20} />
-                              <div className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border border-white flex items-center justify-center"
-                                style={{ backgroundColor: colors.success }}>
-                                <Check size={6} className="text-white" />
-                              </div>
-                            </div>
-                          ) : (
-                            <CircleUser size={20} />
-                          )}
-                        </div>
-                        <div>
-                          <div className="flex items-center">
-                            <span className="font-medium text-sm">{post.author}</span>
-                            {post.authorVerified && (
-                              <span className="ml-1 text-xs rounded px-1 py-0.5" 
-                                style={{ backgroundColor: `${colors.success}20`, color: colors.success }}>
-                                Verified
-                              </span>
-                            )}
-                            <span className="mx-2 text-gray-300">•</span>
-                            <span className="text-gray-500 text-xs">{post.timestamp}</span>
-                          </div>
-                          <div className="text-xs font-medium px-2 py-0.5 rounded mt-1 inline-block" 
-                            style={{ 
-                              fontFamily: 'DM Sans, sans-serif', 
-                              backgroundColor: `${colors.secondary}20`, 
-                              color: colors.secondary 
-                            }}>
-                            {post.topic}
-                          </div>
-                          <p className="mt-2 text-sm">{post.content}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-center ml-4">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center" 
-                          style={{ 
-                            backgroundColor: post.sentimentScore > 0.6 ? `${colors.success}20` : post.sentimentScore < 0.4 ? `${colors.warning}20` : `${colors.text}20`,
-                            color: post.sentimentScore > 0.6 ? colors.success : post.sentimentScore < 0.4 ? colors.warning : colors.text
-                          }}>
-                          <Zap size={16} />
-                        </div>
-                        <span className="text-xs font-medium mt-1">{Math.round(post.sentimentScore * 100)}%</span>
-                      </div>
-                    </div>
-                    <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
-                      <div className="flex items-center text-xs text-gray-500">
-                        <span className="flex items-center mr-4">
-                          <MessageCircle size={14} className="mr-1" />
-                          {post.engagement} Engagements
-                        </span>
-                      </div>
-                      <button className="text-sm font-medium py-1 px-3 rounded" 
-                        style={{ 
-                          fontFamily: 'DM Sans, sans-serif', 
-                          color: colors.primary, 
-                          backgroundColor: `${colors.primary}10` 
-                        }}>
-                        View Details
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {activeTab === 'polls' && (
-              <div className="space-y-4">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold">Active Polls</h2>
-                  <button className="rounded-md px-4 py-2 text-sm font-medium flex items-center" 
-                    style={{ 
-                      fontFamily: 'DM Sans, sans-serif', 
-                      backgroundColor: colors.secondary, 
-                      color: 'white'
-                    }}>
-                    <Plus size={16} className="mr-2" />
-                    Create New Poll
-                  </button>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {pollData.map(poll => (
-                    <div key={poll.id} className="rounded-lg shadow-sm p-4" 
-                      style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <div className="text-xs font-medium px-2 py-0.5 rounded inline-block mb-2" 
-                            style={{ 
-                              fontFamily: 'DM Sans, sans-serif', 
-                              backgroundColor: `${colors.secondary}20`, 
-                              color: colors.secondary 
-                            }}>
-                            {poll.topic}
-                          </div>
-                          <h3 className="font-medium text-base">{poll.question}</h3>
-                        </div>
-                        {poll.verified && (
-                          <div className="text-xs font-medium px-2 py-1 rounded flex items-center" 
-                            style={{ backgroundColor: `${colors.success}20`, color: colors.success }}>
-                            <Shield size={12} className="mr-1" />
-                            VERIFIED
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="mt-4 space-y-3">
-                        {poll.options.map((option, index) => (
-                          <div key={index} className="relative">
-                            <div className="h-8 rounded-md overflow-hidden" style={{ backgroundColor: '#f3f4f6' }}>
-                              <div 
-                                className="h-full rounded-md"
-                                style={{ 
-                                  width: `${poll.votes[index]}%`,
-                                  backgroundColor: poll.votes[index] > 30 ? colors.primary : `${colors.primary}40`
-                                }}
-                              ></div>
-                            </div>
-                            <div className="absolute inset-y-0 px-3 flex justify-between items-center w-full text-sm">
-                              <span style={{ 
-                                color: poll.votes[index] > 30 ? 'white' : colors.text,
-                                fontWeight: poll.votes[index] > 30 ? 700 : 400
-                              }}>
-                                {option}
-                              </span>
-                              <span style={{ 
-                                color: colors.primary,
-                                fontWeight: 600
-                              }}>
-                                {poll.votes[index]}%
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
-                        <div className="text-xs text-gray-500">
-                          Total votes: {poll.votes.reduce((a, b) => a + b, 0) * 10}
-                        </div>
-                        <button className="text-sm font-medium py-1 px-3 rounded" 
-                          style={{ 
-                            fontFamily: 'DM Sans, sans-serif', 
-                            color: colors.primary, 
-                            backgroundColor: `${colors.primary}10` 
-                          }}>
-                          Export Data
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {activeTab === 'dashboard' && (
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold">Market Research Insights</h2>
-                  <div className="flex items-center">
-                    <span className="mr-2 text-sm text-gray-600">Time range:</span>
-                    <button className="border rounded-md px-3 py-1 text-sm flex items-center" 
-                      style={{ 
-                        fontFamily: 'DM Sans, sans-serif',
-                        borderColor: '#e5e7eb',
-                        backgroundColor: 'white'
-                      }}>
-                      Last 7 days <ChevronDown size={16} className="ml-1" />
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-sm font-medium text-gray-500">Active Participants</h3>
-                      <Sparkles size={16} style={{ color: colors.primary }} />
-                    </div>
-                    <p className="text-2xl font-bold">8,547</p>
-                    <p className="text-xs mt-1 flex items-center" style={{ color: colors.success }}>
-                      <TrendingUp size={12} className="mr-1" />
-                      +12% from last week
-                    </p>
-                  </div>
-                  
-                  <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-sm font-medium text-gray-500">Verified Responses</h3>
-                      <Shield size={16} style={{ color: colors.primary }} />
-                    </div>
-                    <p className="text-2xl font-bold">6,289</p>
-                    <p className="text-xs mt-1 flex items-center" style={{ color: colors.success }}>
-                      <TrendingUp size={12} className="mr-1" />
-                      +8% from last week
-                    </p>
-                  </div>
-                  
-                  <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-sm font-medium text-gray-500">Data Reliability Score</h3>
-                      <AlertCircle size={16} style={{ color: colors.primary }} />
-                    </div>
-                    <p className="text-2xl font-bold">94%</p>
-                    <p className="text-xs mt-1 flex items-center" style={{ color: colors.success }}>
-                      <TrendingUp size={12} className="mr-1" />
-                      +3% from last week
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-6 mb-6">
-                  {/* Pie Chart Visualization */}
-                  <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-medium">Purchase Decision Factors</h3>
-                      <PieChart size={18} style={{ color: colors.primary }} />
-                    </div>
-                    
-                    <div className="h-64 rounded-md flex items-center justify-center p-4" style={{ backgroundColor: '#f3f4f6' }}>
-                      <div className="w-full h-full flex flex-col items-center">
-                        <div style={{ 
-                          width: '160px', 
-                          height: '160px', 
-                          borderRadius: '50%',
-                          background: `conic-gradient(
-                            ${colors.primary} 0deg 126deg, 
-                            ${colors.secondary} 126deg 227deg, 
-                            ${colors.accent1} 227deg 288deg, 
-                            ${colors.accent2} 288deg 331deg, 
-                            ${colors.accent3} 331deg 360deg
-                          )`,
-                          position: 'relative',
-                          marginBottom: '16px'
-                        }}>
-                          <div style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            backgroundColor: 'white',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                          }}>
-                            <span style={{ fontFamily: 'Roboto Mono, monospace', fontSize: '14px', fontWeight: 500 }}>FACTORS</span>
-                          </div>
-                        </div>
-                        
-                        <div className="w-full grid grid-cols-5 gap-2 text-center">
-                          <div>
-                            <div className="w-3 h-3 mx-auto mb-1 rounded-sm" style={{ backgroundColor: colors.primary }}></div>
-                            <div className="text-xs">Price</div>
-                            <div className="text-xs font-medium">35%</div>
-                          </div>
-                          <div>
-                            <div className="w-3 h-3 mx-auto mb-1 rounded-sm" style={{ backgroundColor: colors.secondary }}></div>
-                            <div className="text-xs">Quality</div>
-                            <div className="text-xs font-medium">28%</div>
-                          </div>
-                          <div>
-                            <div className="w-3 h-3 mx-auto mb-1 rounded-sm" style={{ backgroundColor: colors.accent1 }}></div>
-                            <div className="text-xs">Brand</div>
-                            <div className="text-xs font-medium">17%</div>
-                          </div>
-                          <div>
-                            <div className="w-3 h-3 mx-auto mb-1 rounded-sm" style={{ backgroundColor: colors.accent2 }}></div>
-                            <div className="text-xs">Convenience</div>
-                            <div className="text-xs font-medium">12%</div>
-                          </div>
-                          <div>
-                            <div className="w-3 h-3 mx-auto mb-1 rounded-sm" style={{ backgroundColor: colors.accent3 }}></div>
-                            <div className="text-xs">Sustainability</div>
-                            <div className="text-xs font-medium">8%</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Bar Chart Visualization */}
-                  <div className="rounded-lg shadow-sm p-4" style={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }}>
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-medium">Regional Data Insights</h3>
-                      <Map size={18} style={{ color: colors.primary }} />
-                    </div>
-                    
-                    <div className="h-64 rounded-md" style={{ backgroundColor: '#f3f4f6' }}>
-                      <div className="h-full p-4 flex flex-col">
-                        <div className="flex items-end h-32 mb-4 pb-1 border-b border-gray-300" style={{ paddingTop: '12px' }}>
-                          <div className="flex-1 flex flex-col items-center">
-                            <div className="w-12 relative">
-                              <div className="absolute bottom-0 w-full rounded-t" style={{ height: '84px', backgroundColor: colors.primary }}></div>
-                            </div>
-                            <div className="mt-2 text-xs font-medium">Northeast</div>
-                            <div className="text-xs">28%</div>
-                          </div>
-                          <div className="flex-1 flex flex-col items-center">
-                            <div className="w-12 relative">
-                              <div className="absolute bottom-0 w-full rounded-t" style={{ height: '66px', backgroundColor: colors.secondary }}></div>
-                            </div>
-                            <div className="mt-2 text-xs font-medium">Midwest</div>
-                            <div className="text-xs">22%</div>
-                          </div>
-                          <div className="flex-1 flex flex-col items-center">
-                            <div className="w-12 relative">
-                              <div className="absolute bottom-0 w-full rounded-t" style={{ height: '96px', backgroundColor: colors.accent2 }}></div>
-                            </div>
-                            <div className="mt-2 text-xs font-medium">South</div>
-                            <div className="text-xs">32%</div>
-                          </div>
-                          <div className="flex-1 flex flex-col items-center">
-                            <div className="w-12 relative">
-                              <div className="absolute bottom-0 w-full rounded-t" style={{ height: '54px', backgroundColor: colors.accent1 }}></div>
-                            </div>
-                            <div className="mt-2 text-xs font-medium">West</div>
-                            <div className="text-xs">18%</div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex-1">
-                          <h4 className="text-xs font-medium mb-2 text-gray-700">Key Regional Insights:</h4>
-                          <ul className="text-xs space-y-1">
-                            <li className="flex items-start">
-                              <div className="w-2 h-2 mt-1 mr-2 rounded-full" style={{ backgroundColor: colors.accent2 }}></div>
-                              <span>Southern markets show highest price sensitivity (38%)</span>
-                            </li>
-                            <li className="flex items-start">
-                              <div className="w-2 h-2 mt-1 mr-2 rounded-full" style={{ backgroundColor: colors.accent2 }}></div>
-                              <span>Northeast consumers prioritize quality over price</span>
-                            </li>
-                            <li className="flex items-start">
-                              <div className="w-2 h-2 mt-1 mr-2 rounded-full" style={{ backgroundColor: colors.accent2 }}></div>
-                              <span>Western region leads in sustainability concerns</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
