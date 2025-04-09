@@ -1,0 +1,1209 @@
+import React, { useState } from 'react';
+import { 
+  Sparkles, 
+  TrendingUp, 
+  CircleUser, 
+  BarChart3, 
+  Shield, 
+  MessageCircle, 
+  Check, 
+  ChevronDown, 
+  Search,
+  Zap, 
+  Mail,
+  Home,
+  BarChart,
+  Users,
+  Settings,
+  PieChart,
+  Map,
+  Plus,
+  AlertCircle,
+  Share2,
+  UserPlus,
+  ArrowUpRight,
+  BookOpen,
+  LineChart,
+  Download,
+  Bell,
+  Lock,
+  CreditCard,
+  HelpCircle,
+  LogOut,
+  User,
+  Briefcase,
+  FileText,
+  Clock,
+  CheckCircle
+} from 'lucide-react';
+
+const VertafyPreview = () => {
+  const colors = {
+    primary: '#1E88E5',
+    secondary: '#7C4DFF',
+    accent1: '#00BFA5',
+    accent2: '#FF6E40',
+    accent3: '#FFD740',
+    accent4: '#5C6BC0',
+    accent5: '#26A69A',
+    success: '#4CAF50',
+    warning: '#FFC107',
+    error: '#F44336',
+  };
+
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [analystQuestion, setAnalystQuestion] = useState('');
+  const [selectedStudy, setSelectedStudy] = useState('Retail Consumer Behavior Q1 2025');
+  const [submittedQuestions, setSubmittedQuestions] = useState([
+    {
+      id: 1,
+      author: "Avery Lee",
+      question: "What are key actions per region considering global trade price inflation?",
+      response: "Action factors based on query:\n- Prioritize regional subsidies in the South\n- Incentivize local quality labeling in the Northeast\n- Expand sustainability education in the West\n- Adjust premium strategies in the Midwest",
+      actions: [
+        { text: "Prioritize regional subsidies in the South", assignee: "Sarah J", status: "in-progress" },
+        { text: "Incentivize local quality labeling in the Northeast", assignee: "Michael C", status: "completed" },
+        { text: "Expand sustainability education in the West", assignee: "David K", status: "pending" },
+        { text: "Adjust premium strategies in the Midwest", assignee: "Avery L", status: "in-progress" }
+      ],
+      timestamp: "2h ago"
+    },
+    {
+      id: 2,
+      author: "Sarah Johnson",
+      question: "How should we respond to the increasing demand for sustainable packaging across different price points?",
+      response: "Action factors based on query:\n- Introduce tiered sustainable packaging options\n- Target premium eco-friendly materials for high-end products\n- Implement recycled packaging for mid-range offerings\n- Develop cost-effective biodegradable options for budget lines",
+      actions: [
+        { text: "Introduce tiered sustainable packaging options", assignee: "Avery L", status: "pending" },
+        { text: "Target premium eco-friendly materials for high-end products", assignee: "Sarah J", status: "completed" },
+        { text: "Implement recycled packaging for mid-range offerings", assignee: "David K", status: "in-progress" },
+        { text: "Develop cost-effective biodegradable options for budget lines", assignee: "Michael C", status: "pending" }
+      ],
+      timestamp: "Yesterday"
+    }
+  ]);
+
+  // Sample analyst questions
+  const sampleQuestions = [
+    "What strategies should we implement to address price sensitivity in the Southern region?",
+    "How can we improve brand perception among 25-34 year olds in urban markets?",
+    "What product features should we prioritize based on regional preferences?",
+    "Which sustainability initiatives would have the highest ROI across demographics?"
+  ];
+
+  // Poll data
+  const pollData = [
+    { id: 1, question: "Which factor most influences your grocery purchasing decisions?", options: ["Price", "Quality", "Brand", "Sustainability"], votes: [42, 31, 16, 11], verified: true, topic: "Grocery Price Trends" },
+    { id: 2, question: "How has your brand loyalty changed in the past year?", options: ["Increased loyalty", "Decreased loyalty", "No change", "More selective"], votes: [23, 37, 15, 25], verified: true, topic: "Brand Loyalty Factors" }
+  ];
+
+  // Feed data
+  const feedItems = [
+    { id: 1, author: "Alex Morgan", role: "Data Analyst", time: "2h ago", content: "New consumer patterns emerging in the Southeast, showing 27% increase in sustainable product adoption.", tags: ["Data Trend", "Sustainability"], avatar: "A" },
+    { id: 2, author: "Jamie Chen", role: "Research Lead", time: "4h ago", content: "Healthcare accessibility study completed with 2,450 participants. Key finding: 68% report difficulty with prescription costs.", tags: ["Healthcare", "Research"], avatar: "J" },
+    { id: 3, author: "Taylor Wilson", role: "Market Strategist", time: "6h ago", content: "Tech preferences shifting in 18-24 demographic. Comprehensive report available in shared resources.", tags: ["Technology", "Youth Market"], avatar: "T" },
+    { id: 4, author: "Robin Patel", role: "Brand Analyst", time: "Yesterday", content: "Brand loyalty factors analysis shows quality consistency outranking price by 23% this quarter.", tags: ["Brand Loyalty", "Consumer Behavior"], avatar: "R" }
+  ];
+
+  // Community data
+  const collaborators = [
+    { id: 1, name: "Michael Chen", role: "Data Scientist", avatar: "M", status: "active" },
+    { id: 2, name: "Sarah Johnson", role: "Research Lead", avatar: "S", status: "active" },
+    { id: 3, name: "David Kim", role: "Market Analyst", avatar: "D", status: "away" }
+  ];
+
+  const trendingStudies = [
+    { id: 1, title: "Retail Consumer Behavior Q1", author: "Global Insight Team", participants: 3240, engagement: "High" },
+    { id: 2, title: "Healthcare Access Patterns", author: "Medical Market Research", participants: 1850, engagement: "Medium" },
+    { id: 3, title: "Gen Z Brand Perceptions", author: "Youth Market Analysis", participants: 2760, engagement: "Very High" }
+  ];
+  
+  // Study options for dashboard dropdown
+  const studyOptions = [
+    "Retail Consumer Behavior Q1 2025",
+    "Healthcare Access Patterns 2025",
+    "Gen Z Brand Perceptions",
+    "Sustainability Impact Analysis 2025",
+    "Premium vs Value Product Positioning"
+  ];
+
+  // Regional data with unique colors for each region
+  const regionData = [
+    { name: "Northeast", value: 28, color: colors.primary, insights: "Prioritizes quality, highest brand loyalty" },
+    { name: "Southeast", value: 22, color: colors.secondary, insights: "Price sensitive, increasing sustainability interest" },
+    { name: "Midwest", value: 18, color: colors.accent1, insights: "Value-oriented, traditional brand preferences" },
+    { name: "Southwest", value: 14, color: colors.accent2, insights: "Emerging markets, high growth potential" },
+    { name: "West", value: 18, color: colors.accent3, insights: "Sustainability focused, premium market" }
+  ];
+
+  const handleAnalystSubmit = () => {
+    if (analystQuestion.trim()) {
+      const newQuestion = {
+        id: submittedQuestions.length + 1,
+        author: "Avery Lee",
+        question: analystQuestion,
+        response: "Action factors based on query:\n- Prioritize regional subsidies in the South\n- Incentivize local quality labeling in the Northeast\n- Expand sustainability education in the West\n- Adjust premium strategies in the Midwest",
+        actions: [
+          { text: "Prioritize regional subsidies in the South", assignee: "Sarah J", status: "pending" },
+          { text: "Incentivize local quality labeling in the Northeast", assignee: "Michael C", status: "pending" },
+          { text: "Expand sustainability education in the West", assignee: "David K", status: "pending" },
+          { text: "Adjust premium strategies in the Midwest", assignee: "Avery L", status: "pending" }
+        ],
+        timestamp: "Just now"
+      };
+      setSubmittedQuestions([newQuestion, ...submittedQuestions]);
+      setAnalystQuestion('');
+    }
+  };
+
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 size={16} /> },
+    { id: 'feed', label: 'Feed', icon: <Home size={16} /> },
+    { id: 'polls', label: 'Polls', icon: <BarChart size={16} /> },
+    { id: 'analytics', label: 'Analytics', icon: <LineChart size={16} /> },
+    { id: 'community', label: 'Community', icon: <Users size={16} /> },
+    { id: 'settings', label: 'Settings', icon: <Settings size={16} /> }
+  ];
+
+  return (
+    <div className="flex h-screen bg-gray-50 text-gray-800 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+      {/* Sidebar Navigation */}
+      <div className="w-48 h-screen flex flex-col bg-white border-r border-gray-200">
+        <div className="p-3 border-b border-gray-200">
+          <div className="flex items-center">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" className="text-blue-500">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <h1 className="text-xl font-bold ml-2 text-blue-500">vertafy</h1>
+          </div>
+        </div>
+        
+        <nav className="flex-1 pt-2">
+          <ul>
+            {navItems.map(item => (
+              <li key={item.id} className="mb-1 px-2">
+                <button
+                  onClick={() => setActiveTab(item.id)}
+                  className={`w-full flex items-center py-2 px-3 text-xs font-medium rounded-md ${
+                    activeTab === item.id 
+                      ? 'bg-blue-50 text-blue-600' 
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <span className="mr-2">{item.icon}</span>
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        
+        <div className="p-3 border-t border-gray-200">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white bg-purple-500">
+              <CircleUser size={16} />
+            </div>
+            <div className="ml-2">
+              <p className="text-xs font-medium">Avery Lee</p>
+              <p className="text-xs text-gray-500">Brand Analyst</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Header */}
+        <header className="py-3 px-4 flex justify-between items-center bg-white border-b border-gray-200">
+          <div className="flex items-center">
+            <h2 className="text-sm font-semibold">{navItems.find(item => item.id === activeTab)?.label}</h2>
+            <div className="ml-2 py-0.5 px-1.5 rounded text-xs font-medium flex items-center bg-teal-50 text-teal-600">
+              <Shield size={10} className="mr-1" /> VERIFIED
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <div className="flex items-center bg-gray-100 rounded-md px-2 py-1">
+                <Search size={14} className="text-gray-500 mr-1" />
+                <input 
+                  type="text" 
+                  placeholder="Search..." 
+                  className="bg-transparent border-none outline-none text-xs w-32" 
+                />
+              </div>
+            </div>
+            <div className="relative cursor-pointer">
+              <div className="w-7 h-7 rounded-full flex items-center justify-center text-white bg-purple-500">
+                <Mail size={14} />
+              </div>
+              <span className="absolute -top-1 -right-1 bg-red-500 rounded-full w-3.5 h-3.5 flex items-center justify-center text-white text-xs">3</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Dashboard Tab Content */}
+        {activeTab === 'dashboard' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center">
+                <h3 className="text-xs font-semibold">Dashboard</h3>
+                <div className="ml-2 text-xs text-gray-500 flex items-center bg-blue-50 text-blue-700 px-2 py-0.5 rounded">
+                  <span>{selectedStudy}</span>
+                  <ChevronDown size={12} className="ml-1" />
+                </div>
+              </div>
+              <div className="flex items-center text-xs">
+                <span className="mr-2 text-gray-600">Select Study:</span>
+                <select 
+                  className="border rounded px-2 py-1 bg-white"
+                  value={selectedStudy}
+                  onChange={(e) => setSelectedStudy(e.target.value)}
+                >
+                  {studyOptions.map((study, idx) => (
+                    <option key={idx} value={study}>{study}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Active Participants</h3>
+                  <Sparkles size={14} className="text-blue-500" />
+                </div>
+                <p className="text-xl font-bold">8,547</p>
+                <p className="text-xs mt-1 flex items-center text-green-600">
+                  <TrendingUp size={10} className="mr-1" /> +12% from last week
+                </p>
+              </div>
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Engagement Rate</h3>
+                  <MessageCircle size={14} className="text-purple-500" />
+                </div>
+                <p className="text-xl font-bold">74.2%</p>
+                <p className="text-xs mt-1 flex items-center text-green-600">
+                  <TrendingUp size={10} className="mr-1" /> +3.8% from last week
+                </p>
+              </div>
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Verified Insights</h3>
+                  <Check size={14} className="text-teal-500" />
+                </div>
+                <p className="text-xl font-bold">1,294</p>
+                <p className="text-xs mt-1 flex items-center text-green-600">
+                  <TrendingUp size={10} className="mr-1" /> +28% from last week
+                </p>
+              </div>
+            </div>
+
+            {/* Bar Chart Section */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xs font-semibold">Regional Activity</h3>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <span className="mr-1">Last 30 days</span>
+                    <ChevronDown size={14} />
+                  </div>
+                </div>
+                <div className="h-48 flex items-end justify-between px-2">
+                  {regionData.map((region, index) => (
+                    <div key={region.name} className="flex flex-col items-center">
+                      <div className="rounded-t" style={{
+                        height: `${region.value * 2.5}%`,
+                        width: '20px',
+                        backgroundColor: region.color,
+                        opacity: 0.85
+                      }}></div>
+                      <p className="mt-1 text-xs text-gray-600">{region.name}</p>
+                      <p className="text-xs font-medium">{region.value}%</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xs font-semibold">Purchase Decision Factors</h3>
+                  <PieChart size={14} className="text-blue-500" />
+                </div>
+                
+                <div className="flex h-48">
+                  <div className="w-1/2 flex items-center justify-center">
+                    <div style={{ 
+                      width: '100px', 
+                      height: '100px', 
+                      borderRadius: '50%',
+                      background: `conic-gradient(
+                        ${colors.primary} 0deg 126deg, 
+                        ${colors.secondary} 126deg 227deg, 
+                        ${colors.accent1} 227deg 288deg, 
+                        ${colors.accent2} 288deg 331deg, 
+                        ${colors.accent3} 331deg 360deg
+                      )`
+                    }}></div>
+                  </div>
+                  
+                  <div className="w-1/2 flex flex-col justify-center space-y-2">
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-sm bg-blue-500 mr-2"></div>
+                      <span className="text-xs">Price (35%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-sm bg-purple-500 mr-2"></div>
+                      <span className="text-xs">Quality (28%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-sm bg-teal-500 mr-2"></div>
+                      <span className="text-xs">Brand (17%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-sm bg-orange-500 mr-2"></div>
+                      <span className="text-xs">Convenience (12%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 rounded-sm bg-amber-500 mr-2"></div>
+                      <span className="text-xs">Other (8%)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Analyst Query Section */}
+            <div className="p-3 bg-white rounded-lg shadow-sm border border-gray-200 mb-4">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-xs font-semibold">Analyst Queries</h3>
+                <div className="flex items-center space-x-2">
+                  <button className="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs">Team View</button>
+                  <button className="bg-blue-600 text-white px-2 py-1 rounded text-xs">My Queries</button>
+                </div>
+              </div>
+              
+              <div className="flex mb-3">
+                <input
+                  type="text"
+                  value={analystQuestion}
+                  onChange={(e) => setAnalystQuestion(e.target.value)}
+                  placeholder="e.g. Actions for regional trade inflation?"
+                  className="flex-1 border border-gray-300 rounded-l-md px-3 py-1.5 text-xs focus:outline-none"
+                />
+                <button
+                  onClick={handleAnalystSubmit}
+                  className="flex items-center bg-blue-600 text-white px-3 py-1.5 rounded-r-md text-xs hover:bg-blue-700"
+                >
+                  <Zap size={12} className="mr-1" /> Generate
+                </button>
+              </div>
+              
+              <div className="mb-3">
+                <p className="text-xs text-gray-500 mb-1">Sample questions:</p>
+                <div className="flex flex-wrap gap-1">
+                  {sampleQuestions.map((question, idx) => (
+                    <button 
+                      key={idx} 
+                      onClick={() => setAnalystQuestion(question)}
+                      className="text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                {submittedQuestions.map((entry, index) => (
+                  <div key={index} className="border rounded-md bg-gray-50">
+                    <div className="p-2 border-b">
+                      <div className="flex justify-between items-center mb-1">
+                        <div className="flex items-center">
+                          <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 text-xs mr-1">
+                            {entry.author.charAt(0)}
+                          </div>
+                          <span className="text-xs font-medium">{entry.author}</span>
+                        </div>
+                        <span className="text-xs text-gray-500">{entry.timestamp}</span>
+                      </div>
+                      <p className="text-xs text-gray-800 font-medium">{entry.question}</p>
+                    </div>
+                    <div className="p-2">
+                      <pre className="text-xs text-gray-700 whitespace-pre-wrap p-2 bg-white border rounded mb-2">{entry.response}</pre>
+                      
+                      <div className="space-y-1.5">
+                        <p className="text-xs font-medium">Action Items:</p>
+                        {entry.actions.map((action, idx) => (
+                          <div key={idx} className="flex justify-between items-center p-1.5 bg-white border rounded">
+                            <div className="flex items-center">
+                              <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-2 ${
+                                action.status === 'completed' ? 'bg-green-500' : 
+                                action.status === 'in-progress' ? 'bg-blue-500' : 'bg-gray-300'
+                              }`}>
+                                {action.status === 'completed' && <Check size={10} className="text-white" />}
+                              </div>
+                              <span className="text-xs">{action.text}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">
+                                {action.assignee}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Feed Tab Content */}
+        {activeTab === 'feed' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-4">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-xs font-semibold">Latest Insights</h3>
+                <div className="flex items-center text-xs text-gray-500">
+                  <span className="mr-1">Sort by: Recent</span>
+                  <ChevronDown size={14} />
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                {feedItems.map((item) => (
+                  <div key={item.id} className="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
+                    <div className="flex items-center mb-1">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-medium text-xs">
+                        {item.avatar}
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-xs font-medium">{item.author}</p>
+                        <p className="text-xs text-gray-500">{item.role} • {item.time}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs mb-2">{item.content}</p>
+                    <div className="flex space-x-1">
+                      {item.tags.map((tag, idx) => (
+                        <span key={idx} className="bg-blue-100 text-blue-800 text-xs px-1.5 py-0.5 rounded">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+              <h3 className="text-xs font-semibold mb-3">Recent Activity</h3>
+              
+              <div className="space-y-2">
+                <div className="flex items-center text-xs p-2 bg-gray-50 rounded">
+                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 mr-2 text-xs font-medium">S</div>
+                  <span><b>Sarah Johnson</b> published a new poll on healthcare access</span>
+                  <span className="ml-auto text-gray-500">1h ago</span>
+                </div>
+                
+                <div className="flex items-center text-xs p-2 bg-gray-50 rounded">
+                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-700 mr-2 text-xs font-medium">M</div>
+                  <span><b>Michael Chen</b> shared data visualization on brand loyalty</span>
+                  <span className="ml-auto text-gray-500">3h ago</span>
+                </div>
+                
+                <div className="flex items-center text-xs p-2 bg-gray-50 rounded">
+                  <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 mr-2 text-xs font-medium">A</div>
+                  <span><b>You</b> were mentioned in retail consumer behavior discussion</span>
+                  <span className="ml-auto text-gray-500">Yesterday</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Polls Tab Content */}
+        {activeTab === 'polls' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-xs font-semibold">Active Polls</h3>
+              <button className="flex items-center bg-purple-600 text-white px-2 py-1 rounded text-xs">
+                <Plus size={12} className="mr-1" /> Create Poll
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {pollData.map(poll => (
+                <div key={poll.id} className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <div className="text-xs font-medium px-1.5 py-0.5 rounded inline-block mb-1 bg-purple-100 text-purple-800">
+                        {poll.topic}
+                      </div>
+                      <h3 className="text-xs font-medium">{poll.question}</h3>
+                    </div>
+                    {poll.verified && (
+                      <div className="text-xs font-medium px-1.5 py-0.5 rounded flex items-center bg-green-100 text-green-800">
+                        <Shield size={10} className="mr-1" /> VERIFIED
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-2 mb-3">
+                    {poll.options.map((option, index) => (
+                      <div key={index} className="relative">
+                        <div className="h-6 rounded overflow-hidden bg-gray-100">
+                          <div className="h-full rounded" style={{ 
+                            width: `${poll.votes[index]}%`,
+                            backgroundColor: poll.votes[index] > 30 ? colors.primary : `${colors.primary}80`
+                          }}></div>
+                        </div>
+                        <div className="absolute inset-y-0 px-2 flex justify-between items-center w-full text-xs">
+                          <span className={poll.votes[index] > 30 ? "text-blue-800 font-bold" : "text-gray-700 font-bold"}>
+                            {option}
+                          </span>
+                          <span className="text-blue-800 font-bold">
+                            {poll.votes[index]}%
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-gray-500">Total votes: {poll.votes.reduce((a, b) => a + b, 0) * 10}</span>
+                    <button className="text-blue-600 bg-blue-50 px-2 py-1 rounded font-medium">
+                      Publish Results
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+              <h3 className="text-xs font-semibold mb-3">Recent Poll Responses</h3>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs p-2 bg-gray-50 rounded">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 mr-2">
+                      <Users size={12} />
+                    </div>
+                    <span>Brand Loyalty Factors</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-4">+124 responses today</span>
+                    <button className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded font-medium">View</button>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between text-xs p-2 bg-gray-50 rounded">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 mr-2">
+                      <Users size={12} />
+                    </div>
+                    <span>Grocery Price Trends</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-4">+87 responses today</span>
+                    <button className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded font-medium">View</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Analytics Tab Content */}
+        {activeTab === 'analytics' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-xs font-semibold">Market Research Analytics</h3>
+              <div className="flex space-x-2">
+                <button className="flex items-center bg-white border border-gray-300 text-gray-700 px-2 py-1 rounded text-xs">
+                  <Download size={12} className="mr-1" /> Export
+                </button>
+                <button className="flex items-center bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                  <Share2 size={12} className="mr-1" /> Publish Results
+                </button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Total Participants</h3>
+                  <Users size={14} className="text-blue-500" />
+                </div>
+                <p className="text-xl font-bold">15,847</p>
+                <p className="text-xs mt-1 text-gray-500">
+                  Across all studies and polls
+                </p>
+              </div>
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Data Confidence</h3>
+                  <Shield size={14} className="text-green-500" />
+                </div>
+                <p className="text-xl font-bold">94.7%</p>
+                <p className="text-xs mt-1 text-gray-500">
+                  Statistical reliability score
+                </p>
+              </div>
+              <div className="rounded-lg shadow-sm p-3 bg-white border border-gray-200">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-medium text-gray-500">Market Coverage</h3>
+                  <Map size={14} className="text-purple-500" />
+                </div>
+                <p className="text-xl font-bold">83%</p>
+                <p className="text-xs mt-1 text-gray-500">
+                  Of target demographics
+                </p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-xs font-semibold">Regional Insights</h3>
+                  <button className="text-xs text-blue-600">View Full Report</button>
+                </div>
+                
+                <div className="space-y-2">
+                  {regionData.map((region, index) => (
+                    <div key={index} className="bg-gray-50 p-2 rounded">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-medium">{region.name}</span>
+                        <span className="text-xs font-medium">{region.value}%</span>
+                      </div>
+                      <div className="h-2 bg-gray-200 rounded overflow-hidden">
+                        <div 
+                          className="h-full rounded" 
+                          style={{ 
+                            width: `${region.value * 3}%`, 
+                            backgroundColor: region.color 
+                          }}
+                        ></div>
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">{region.insights}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-xs font-semibold">Demographic Breakdown</h3>
+                  <button className="text-xs text-blue-600">View Details</button>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs">Age Groups</span>
+                    <div className="w-3/4 h-3 bg-gray-100 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-blue-500" style={{ width: '28%' }}></div>
+                      <div className="h-full bg-purple-500" style={{ width: '35%' }}></div>
+                      <div className="h-full bg-teal-500" style={{ width: '22%' }}></div>
+                      <div className="h-full bg-amber-500" style={{ width: '15%' }}></div>
+                    </div>
+                  </div>
+                  <div className="flex text-xs space-x-3">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-blue-500 mr-1"></div>
+                      <span>18-24 (28%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-purple-500 mr-1"></div>
+                      <span>25-34 (35%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-teal-500 mr-1"></div>
+                      <span>35-49 (22%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-amber-500 mr-1"></div>
+                      <span>50+ (15%)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-xs">Income Levels</span>
+                    <div className="w-3/4 h-3 bg-gray-100 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-blue-500" style={{ width: '18%' }}></div>
+                      <div className="h-full bg-purple-500" style={{ width: '42%' }}></div>
+                      <div className="h-full bg-teal-500" style={{ width: '40%' }}></div>
+                    </div>
+                  </div>
+                  <div className="flex text-xs space-x-3">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-blue-500 mr-1"></div>
+                      <span>Low (18%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-purple-500 mr-1"></div>
+                      <span>Middle (42%)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-sm bg-teal-500 mr-1"></div>
+                      <span>High (40%)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-xs font-semibold">Sentiment Analysis</h3>
+                  <span className="text-xs text-gray-500">Updated today</span>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs">Positive</span>
+                    <span className="text-xs font-medium">62%</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full mb-2">
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: '62%' }}></div>
+                  </div>
+                  
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs">Neutral</span>
+                    <span className="text-xs font-medium">25%</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full mb-2">
+                    <div className="h-full bg-gray-400 rounded-full" style={{ width: '25%' }}></div>
+                  </div>
+                  
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs">Negative</span>
+                    <span className="text-xs font-medium">13%</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full mb-2">
+                    <div className="h-full bg-red-500 rounded-full" style={{ width: '13%' }}></div>
+                  </div>
+                  
+                  <p className="text-xs text-gray-600 mt-2">
+                    Sentiment trending upward (+8% positive) compared to previous month.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-xs font-semibold">Key Metrics Comparison</h3>
+                  <button className="text-xs text-blue-600">Export Data</button>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <div className="w-28 text-xs">Brand Awareness</div>
+                    <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-500 rounded-full" style={{ width: '68%' }}></div>
+                    </div>
+                    <div className="w-10 text-right text-xs font-medium">68%</div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <div className="w-28 text-xs">Purchase Intent</div>
+                    <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-purple-500 rounded-full" style={{ width: '54%' }}></div>
+                    </div>
+                    <div className="w-10 text-right text-xs font-medium">54%</div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <div className="w-28 text-xs">Customer Loyalty</div>
+                    <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-teal-500 rounded-full" style={{ width: '72%' }}></div>
+                    </div>
+                    <div className="w-10 text-right text-xs font-medium">72%</div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <div className="w-28 text-xs">Satisfaction</div>
+                    <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-green-500 rounded-full" style={{ width: '81%' }}></div>
+                    </div>
+                    <div className="w-10 text-right text-xs font-medium">81%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Community Tab Content */}
+        {activeTab === 'community' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xs font-semibold">Active Collaborators</h3>
+                  <button className="flex items-center text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded">
+                    <UserPlus size={12} className="mr-1" /> Invite
+                  </button>
+                </div>
+                
+                <div className="space-y-2">
+                  {collaborators.map(person => (
+                    <div key={person.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                      <div className="flex items-center">
+                        <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 mr-2 text-xs font-medium">
+                          {person.avatar}
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium">{person.name}</p>
+                          <p className="text-xs text-gray-500">{person.role}</p>
+                        </div>
+                      </div>
+                      <div className={`w-2 h-2 rounded-full ${person.status === 'active' ? 'bg-green-500' : 'bg-amber-500'}`}></div>
+                    </div>
+                  ))}
+                </div>
+                
+                <button className="w-full text-center text-xs text-gray-600 mt-2 hover:underline">
+                  View all collaborators (12)
+                </button>
+              </div>
+              
+              <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xs font-semibold">Following</h3>
+                  <div className="flex text-xs text-gray-500">
+                    <span className="mr-1">Recent</span>
+                    <ChevronDown size={12} />
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex items-center">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 mr-2">
+                        <BookOpen size={12} />
+                      </div>
+                      <div className="text-xs">
+                        <p className="font-medium">Market Research Journal</p>
+                        <p className="text-gray-500">Research Publication</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-gray-500">2 new</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex items-center">
+                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-700 mr-2">
+                        <Users size={12} />
+                      </div>
+                      <div className="text-xs">
+                        <p className="font-medium">Global Insight Team</p>
+                        <p className="text-gray-500">Research Group</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-gray-500">5 new</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div className="flex items-center">
+                      <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 mr-2 text-xs font-medium">
+                        E
+                      </div>
+                      <div className="text-xs">
+                        <p className="font-medium">Elena Rodriguez</p>
+                        <p className="text-gray-500">Senior Analyst</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-gray-500">1 new</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200 mb-4">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-xs font-semibold">Trending Public Studies</h3>
+                <button className="text-xs text-blue-600">Browse All</button>
+              </div>
+              
+              <div className="space-y-2">
+                {trendingStudies.map(study => (
+                  <div key={study.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div className="flex items-center">
+                      <div className="w-8 h-8 rounded-md bg-purple-100 flex items-center justify-center text-purple-700 mr-2">
+                        <BarChart3 size={14} />
+                      </div>
+                      <div className="text-xs">
+                        <p className="font-medium">{study.title}</p>
+                        <p className="text-gray-500">By {study.author} • {study.participants} participants</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded mr-2">
+                        {study.engagement} Engagement
+                      </span>
+                      <button className="text-blue-600">
+                        <ArrowUpRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="p-3 rounded-lg shadow-sm bg-white border border-gray-200">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-xs font-semibold">Top Public Polls</h3>
+                <button className="text-xs text-blue-600">View More</button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2 border rounded bg-gray-50">
+                  <p className="text-xs font-medium mb-1">Consumer Tech Preferences</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">1,280 responses</span>
+                    <span className="text-green-600">Active</span>
+                  </div>
+                </div>
+                
+                <div className="p-2 border rounded bg-gray-50">
+                  <p className="text-xs font-medium mb-1">Grocery Shopping Habits</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">2,456 responses</span>
+                    <span className="text-green-600">Active</span>
+                  </div>
+                </div>
+                
+                <div className="p-2 border rounded bg-gray-50">
+                  <p className="text-xs font-medium mb-1">Brand Loyalty Factors</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">1,843 responses</span>
+                    <span className="text-green-600">Active</span>
+                  </div>
+                </div>
+                
+                <div className="p-2 border rounded bg-gray-50">
+                  <p className="text-xs font-medium mb-1">Healthcare Preferences</p>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">3,105 responses</span>
+                    <span className="text-green-600">Active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Settings Tab Content */}
+        {activeTab === 'settings' && (
+          <div className="flex-1 overflow-auto p-4">
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-1">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-3">
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 mb-2">
+                      <User size={24} />
+                    </div>
+                    <h3 className="text-sm font-semibold">Avery Lee</h3>
+                    <p className="text-xs text-gray-500">Brand Analyst • Tier 2</p>
+                    <button className="mt-2 text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded w-full">
+                      Edit Profile
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                  <ul className="divide-y">
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <User size={14} className="mr-2 text-gray-500" />
+                      <span>Account Information</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <Lock size={14} className="mr-2 text-gray-500" />
+                      <span>Security & Privacy</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <Bell size={14} className="mr-2 text-gray-500" />
+                      <span>Notifications</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <Briefcase size={14} className="mr-2 text-gray-500" />
+                      <span>Team Management</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <FileText size={14} className="mr-2 text-gray-500" />
+                      <span>Data Export</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <CreditCard size={14} className="mr-2 text-gray-500" />
+                      <span>Billing & Subscription</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs cursor-pointer hover:bg-gray-50">
+                      <HelpCircle size={14} className="mr-2 text-gray-500" />
+                      <span>Help & Support</span>
+                    </li>
+                    <li className="px-3 py-2 flex items-center text-xs text-red-500 cursor-pointer hover:bg-gray-50">
+                      <LogOut size={14} className="mr-2" />
+                      <span>Sign Out</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="col-span-2">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-3">
+                  <h3 className="text-xs font-semibold mb-3">Account Information</h3>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Full Name</label>
+                      <input 
+                        type="text" 
+                        className="w-full text-xs border border-gray-300 rounded px-3 py-1.5"
+                        value="Avery Lee"
+                        readOnly
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Email Address</label>
+                      <input 
+                        type="email" 
+                        className="w-full text-xs border border-gray-300 rounded px-3 py-1.5"
+                        value="avery.lee@example.com"
+                        readOnly
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Job Title</label>
+                      <input 
+                        type="text" 
+                        className="w-full text-xs border border-gray-300 rounded px-3 py-1.5"
+                        value="Brand Analyst"
+                        readOnly
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Organization</label>
+                      <input 
+                        type="text" 
+                        className="w-full text-xs border border-gray-300 rounded px-3 py-1.5"
+                        value="Global Market Insights"
+                        readOnly
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Account Tier</label>
+                      <div className="flex">
+                        <div className="w-full text-xs border border-gray-300 rounded-l px-3 py-1.5 bg-gray-50">
+                          Tier 2 (Professional)
+                        </div>
+                        <button className="bg-blue-50 text-blue-600 px-2 py-1.5 text-xs rounded-r border border-l-0 border-gray-300">
+                          Upgrade
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-3">
+                  <h3 className="text-xs font-semibold mb-3">Notification Preferences</h3>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>Email Digests</span>
+                      <div className="w-8 h-4 bg-blue-500 rounded-full relative">
+                        <div className="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>New Insights</span>
+                      <div className="w-8 h-4 bg-blue-500 rounded-full relative">
+                        <div className="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>Community Updates</span>
+                      <div className="w-8 h-4 bg-blue-500 rounded-full relative">
+                        <div className="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>Team Activity</span>
+                      <div className="w-8 h-4 bg-blue-500 rounded-full relative">
+                        <div className="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>New Poll Responses</span>
+                      <div className="w-8 h-4 bg-gray-300 rounded-full relative">
+                        <div className="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs py-1.5">
+                      <span>Marketing Communications</span>
+                      <div className="w-8 h-4 bg-gray-300 rounded-full relative">
+                        <div className="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="text-xs font-semibold">Recent Account Activity</h3>
+                    <button className="text-xs text-blue-600">View All</button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center p-2 bg-gray-50 rounded">
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                        <Clock size={12} className="text-gray-500" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs">Login from new device</p>
+                        <p className="text-xs text-gray-500">Today, 09:42 AM</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center p-2 bg-gray-50 rounded">
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                        <FileText size={12} className="text-gray-500" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs">Exported analytics report</p>
+                        <p className="text-xs text-gray-500">Yesterday, 3:15 PM</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center p-2 bg-gray-50 rounded">
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                        <CheckCircle size={12} className="text-gray-500" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs">Changed password</p>
+                        <p className="text-xs text-gray-500">Apr 5, 2025, 11:30 AM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default VertafyPreview;
