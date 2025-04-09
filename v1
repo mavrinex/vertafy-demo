@@ -1,0 +1,86 @@
+import React, { useState, useEffect } from 'react';
+import { Sparkles, TrendingUp, CircleUser, BarChart3, Shield, Map, AlertCircle, ChevronDown, Search, Plus, MessageCircle, Check, Zap, PieChart, Mail } from 'lucide-react';
+
+const VertafyApp = () => {
+  const colors = {
+    primary: '#1E88E5',
+    secondary: '#7C4DFF',
+    accent1: '#00BFA5',
+    accent2: '#FF6E40',
+    accent3: '#FFD740',
+    dark: '#2C3E50',
+    light: '#F5F7FA',
+    text: '#37474F',
+    textLight: '#FFFFFF',
+    success: '#4CAF50',
+    warning: '#FFC107',
+    error: '#F44336',
+  };
+
+  const [activeTab, setActiveTab] = useState('feed');
+  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [analystQuestion, setAnalystQuestion] = useState('');
+  const [submittedQuestions, setSubmittedQuestions] = useState([]);
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  const handleAnalystSubmit = () => {
+    if (analystQuestion.trim()) {
+      const response = `Action factors based on query: "${analystQuestion}"\n\n- Prioritize regional subsidies in the South to offset high price sensitivity.\n- Incentivize local quality labeling in the Northeast.\n- Expand sustainability education in the West.\n- Adjust premium strategies in the Midwest.`;
+      setSubmittedQuestions([{ question: analystQuestion, response }, ...submittedQuestions]);
+      setAnalystQuestion('');
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: colors.light, color: colors.text }}>
+      {/* ...Header code including MessageCircle and Mail icon... */}
+
+      {/* Dashboard Tab Content */}
+      {activeTab === 'dashboard' && (
+        <div>
+          {/* Existing dashboard components above */}
+
+          {/* Analyst Query Section */}
+          <div className="mt-10 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <h3 className="text-lg font-semibold mb-2">Analyst Queries</h3>
+            <p className="text-sm text-gray-600 mb-4">Use conversational prompts to generate strategic actions based on current insights.</p>
+            <div className="flex mb-4">
+              <input
+                type="text"
+                value={analystQuestion}
+                onChange={(e) => setAnalystQuestion(e.target.value)}
+                placeholder="e.g. What are key actions per region considering global trade price inflation?"
+                className="flex-1 border border-gray-300 rounded-l-md px-4 py-2 text-sm focus:outline-none"
+              />
+              <button
+                onClick={handleAnalystSubmit}
+                className="bg-blue-600 text-white px-4 rounded-r-md text-sm hover:bg-blue-700"
+              >
+                Generate Actions
+              </button>
+            </div>
+            <div className="space-y-4">
+              {submittedQuestions.map((entry, index) => (
+                <div key={index} className="p-4 border rounded-md bg-gray-50">
+                  <p className="text-sm text-gray-800 font-medium mb-1">{entry.question}</p>
+                  <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono">{entry.response}</pre>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default VertafyApp;
